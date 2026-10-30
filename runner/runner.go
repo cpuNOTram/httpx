@@ -2677,6 +2677,12 @@ retry:
 		}
 	}
 
+	// hrefs are sorted with .ico first, so if the first one is not an .ico none are;
+	// if probing is allowed, try the default /favicon.ico first
+	if defaultProbe && !strings.HasSuffix(strings.ToLower(hrefs[0]), ".ico") {
+		hrefs = append([]string{"/favicon.ico"}, hrefs...)Expand commentComment on lines R2862 to R2863
+	}
+
 	if scanopts.TechDetect && len(technologies) > 0 {
 		sort.Strings(technologies)
 		technologies := strings.Join(technologies, ",")
